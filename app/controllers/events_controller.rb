@@ -17,4 +17,9 @@ class EventsController < ApplicationController
       render json: '0', status: :not_found
     end
   end
+
+  def reset
+    Account.delete_all
+    render json: 'OK', status: :ok
+  end
 end
