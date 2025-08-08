@@ -6,7 +6,8 @@ class EventsController < ApplicationController
     result = case params[:type]
     when 'deposit'
       service.deposit(params[:destination], params[:amount])
- 
+    when 'withdraw'
+      service.withdraw(params[:origin], params[:amount])
     end
     if result
       render json: result, status: :created
