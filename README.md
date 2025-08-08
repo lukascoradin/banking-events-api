@@ -1,7 +1,7 @@
 # Banking Events API
 
-API simples para simular operações bancárias como depósito, saque e transferência entre contas.  
-Construída em Ruby on Rails, utilizando SQLite para persistência dos dados.
+Simple API to simulate banking operations such as deposits, withdrawals, and transfers between accounts.  
+Built in Ruby on Rails, using SQLite for data persistence.
 
 
 
@@ -14,7 +14,7 @@ POST /reset
 
 200 OK
 
-
+--
 
 ### Get balance for non-existing account
 
@@ -33,7 +33,7 @@ POST /event {"type":"deposit", "destination":"100", "amount":10}
 
 201 {"destination": {"id":"100", "balance":10}}
 
-
+--
 
 ### Deposit into existing account
 
@@ -41,7 +41,7 @@ POST /event {"type":"deposit", "destination":"100", "amount":10}
 
 201 {"destination": {"id":"100", "balance":20}}
 
-
+--
 
 ### Get balance for existing account
 
@@ -60,7 +60,7 @@ POST /event {"type":"withdraw", "origin":"200", "amount":10}
 
 404 0
 
-
+--
 
 ### Withdraw from existing account
 
@@ -79,7 +79,7 @@ POST /event {"type":"transfer", "origin":"100", "amount":15, "destination":"300"
 
 201 {"origin": {"id":"100", "balance":0}, "destination": {"id":"300", "balance":15}}
 
-
+--
 
 ### Transfer from non-existing account
 
