@@ -3,7 +3,7 @@ class EventService
   def deposit(destination, amount)
     account = Account.find_or_create_by(id: destination)
     account.update(balance: account.balance + amount)
-    { destination: { id: account.id, balance: account.balance } }
+    { destination: { id: account.id.to_s, balance: account.balance } }
   end
 
   def withdraw(origin, amount)
@@ -11,7 +11,7 @@ class EventService
     return nil unless account
 
     account.update(balance: account.balance - amount)
-    { origin: { id: account.id, balance: account.balance } }
+    { origin: { id: account.id.to_s, balance: account.balance } }
   end
 
   def transfer(origin, destination, amount)
@@ -22,7 +22,7 @@ class EventService
 
     origin_account.update(balance: origin_account.balance - amount)
     destination_account.update(balance: destination_account.balance + amount)
-    { origin: { id: origin_account.id, balance: origin_account.balance }, 
-    destination: { id: destination_account.id, balance: destination_account.balance } }
+    { origin: { id: origin_account.id.to_s, balance: origin_account.balance }, 
+    destination: { id: destination_account.id.to_s, balance: destination_account.balance } }
   end
 end
