@@ -8,6 +8,8 @@ class EventsController < ApplicationController
       service.deposit(params[:destination], params[:amount])
     when 'withdraw'
       service.withdraw(params[:origin], params[:amount])
+    when 'transfer'
+      service.transfer(params[:origin], params[:destination], params[:amount])
     end
     if result
       render json: result, status: :created
