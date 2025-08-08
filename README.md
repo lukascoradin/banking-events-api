@@ -1,24 +1,82 @@
-# README
+# Banking Events API
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+API simples para simular operações bancárias como depósito, saque e transferência entre contas.  
+Construída em Ruby on Rails, utilizando SQLite para persistência dos dados.
 
-Things you may want to cover:
 
-* Ruby version
+--
+### Reset state before starting tests
 
-* System dependencies
+POST /reset
 
-* Configuration
+200 OK
 
-* Database creation
 
-* Database initialization
+--
+### Get balance for non-existing account
 
-* How to run the test suite
+GET /balance?account_id=1234
 
-* Services (job queues, cache servers, search engines, etc.)
+404 0
 
-* Deployment instructions
 
-* ...
+## DEPOSIT
+
+--
+### Create account with initial balance
+
+POST /event {"type":"deposit", "destination":"100", "amount":10}
+
+201 {"destination": {"id":"100", "balance":10}}
+
+
+--
+### Deposit into existing account
+
+POST /event {"type":"deposit", "destination":"100", "amount":10}
+
+201 {"destination": {"id":"100", "balance":20}}
+
+
+--
+### Get balance for existing account
+
+GET /balance?account_id=100
+
+200 20
+
+
+## WITHDRAW
+
+--
+# Withdraw from non-existing account
+
+POST /event {"type":"withdraw", "origin":"200", "amount":10}
+
+404 0
+
+--
+# Withdraw from existing account
+
+POST /event {"type":"withdraw", "origin":"100", "amount":5}
+
+201 {"origin": {"id":"100", "balance":15}}
+
+
+## TRANSFER
+
+--
+### Transfer from existing account
+
+POST /event {"type":"transfer", "origin":"100", "amount":15, "destination":"300"}
+
+201 {"origin": {"id":"100", "balance":0}, "destination": {"id":"300", "balance":15}}
+
+--
+### Transfer from non-existing account
+
+POST /event {"type":"transfer", "origin":"200", "amount":15, "destination":"300"}
+
+404 0
+
+
